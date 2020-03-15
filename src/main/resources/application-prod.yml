@@ -1,0 +1,42 @@
+# Tomcat
+server:
+  tomcat:
+    max-threads: 1000
+    min-spare-threads: 30
+    #日志配置
+    accesslog:
+      buffered: true
+      enabled: true
+      directory: /home/lxyisacloudb/logs/tomcat
+      file-date-format: yyyy-MM-dd
+      pattern: common
+      prefix: access_log
+      rename-on-rotate: false
+      request-attributes-enabled: false
+      rotate: true
+      suffix: .log
+  #端口配置
+  port: 8090
+
+
+file:
+  download:
+    basepath: /home/kugoufeng/stock/
+
+hadoop:
+  name-node: hdfs://192.168.109.131:9000
+  username: kugoufeng
+  hdfs-base-dir: /home/data/stock/
+
+
+data:
+  stock:
+    download:
+      url: http://118.89.122.231:8080/common/downloadFile?fileName={fileName}
+    upload:
+      url: http://118.89.122.231:8080/common/upload
+
+mr:
+  app:
+    path: /home/kugoufeng/mapreduce/stock-count.jar
+
