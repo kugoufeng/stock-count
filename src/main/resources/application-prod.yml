@@ -7,7 +7,7 @@ server:
     accesslog:
       buffered: true
       enabled: true
-      directory: /home/lxyisacloudb/logs/tomcat
+      directory: /home/kugoufeng/logs/tomcat
       file-date-format: yyyy-MM-dd
       pattern: common
       prefix: access_log

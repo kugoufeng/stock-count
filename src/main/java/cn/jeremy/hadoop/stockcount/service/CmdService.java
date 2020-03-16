@@ -26,6 +26,12 @@ public class CmdService
     @Value("${hadoop.hdfs-base-dir}")
     private String hdfsBaseDir;
 
+    /**
+     * 统计当天的妖股
+     *
+     * @author fengjiangtao
+     * @date 2020/3/16 20:39
+     */
     public void execDemonStockCount()
     {
         execDemonStockCount(DateTools.date2TimeStr(new Date(), DateTools.DATE_FORMAT_10));
@@ -34,6 +40,52 @@ public class CmdService
     public void execDemonStockCount(String date)
     {
         execCountMr("cn.jeremy.hadoop.stockcount.mr.DemonStockCount", date);
+    }
+
+    /**
+     * 统计连续涨停的股票
+     *
+     * @author fengjiangtao
+     */
+    public void execContinuousTradingStockCount()
+    {
+        execContinuousTradingStockCount(DateTools.date2TimeStr(new Date(), DateTools.DATE_FORMAT_10));
+    }
+
+    public void execContinuousTradingStockCount(String date)
+    {
+        execCountMr("cn.jeremy.hadoop.stockcount.mr.ContinuousTradingStockCount", date);
+    }
+
+    /**
+     * 统计连续跌停的股票
+     *
+     * @author fengjiangtao
+     */
+    public void execContinuousLimitStockCount()
+    {
+        execContinuousLimitStockCount(DateTools.date2TimeStr(new Date(), DateTools.DATE_FORMAT_10));
+    }
+
+    public void execContinuousLimitStockCount(String date)
+    {
+        execCountMr("cn.jeremy.hadoop.stockcount.mr.ContinuousLimitStockCount", date);
+    }
+
+    /**
+     * 统计当天资金情况
+     *
+     * @author fengjiangtao
+     * @date 2020/3/16 20:39
+     */
+    public void execContinuousStockFundCount()
+    {
+        execContinuousStockFundCount(DateTools.date2TimeStr(new Date(), DateTools.DATE_FORMAT_10));
+    }
+
+    public void execContinuousStockFundCount(String date)
+    {
+        execCountMr("cn.jeremy.hadoop.stockcount.mr.ContinuousStockFundCount", date);
     }
 
     public void execCountMr(String mainClass, String date)

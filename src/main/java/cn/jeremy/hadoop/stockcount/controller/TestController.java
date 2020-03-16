@@ -59,4 +59,12 @@ public class TestController
         return "success";
     }
 
+    @RequestMapping(value = "/stockData", method = RequestMethod.GET)
+    public String stockData()
+        throws ZipException
+    {
+        stockDataService.stockData();
+        return "success";
+    }
+
 }
