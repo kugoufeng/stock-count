@@ -67,6 +67,8 @@ public class StockDataService
         cmdService.execContinuousLimitStockCount();
         //统计股票资金情况
         cmdService.execContinuousStockFundCount();
+        //统计股票资金连续流入的股票
+        cmdService.execContinuousStockFundUpCount();
         //下载hdfs数据到本地
         copyHdfsStockDataToLocal();
         //上传股票分析数据到外网服务器

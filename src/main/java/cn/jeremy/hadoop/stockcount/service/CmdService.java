@@ -88,6 +88,22 @@ public class CmdService
         execCountMr("cn.jeremy.hadoop.stockcount.mr.ContinuousStockFundCount", date);
     }
 
+    /**
+     * 统计资金连续多日流入的股票
+     *
+     * @author fengjiangtao
+     * @date 2020/3/16 20:39
+     */
+    public void execContinuousStockFundUpCount()
+    {
+        execContinuousStockFundCount(DateTools.date2TimeStr(new Date(), DateTools.DATE_FORMAT_10));
+    }
+
+    public void execContinuousStockFundUpCount(String date)
+    {
+        execCountMr("cn.jeremy.hadoop.stockcount.mr.ContinuousStockFundUpCount", date);
+    }
+
     public void execCountMr(String mainClass, String date)
     {
         String[] args = {hdfsBaseDir.concat("raw"), hdfsBaseDir, date};
