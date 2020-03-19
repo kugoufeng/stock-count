@@ -4,13 +4,11 @@ import cn.jeremy.hadoop.stockcount.mr.bean.DemonStock;
 import cn.jeremy.hadoop.stockcount.mr.bean.JobStartFiled;
 import cn.jeremy.hadoop.stockcount.mr.bean.RawStock;
 import cn.jeremy.hadoop.stockcount.mr.mapper.RawStockMapper;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * 统计最后一个交易日股票涨幅大于3.33%，而至少前3个交易日股票涨跌幅小于最后一个交易日的1/3，这样的股票
@@ -33,23 +31,11 @@ public class DemonStockCount extends BaseStockCount
         protected void reduce(Text key, Iterable<RawStock> values, Context context)
             throws IOException, InterruptedException
         {
-            Iterator<RawStock> iterator = values.iterator();
-            List<RawStock> list = new ArrayList<>();
-            while (iterator.hasNext())
-            {
-                RawStock next = iterator.next();
-                try
-                {
-                    list.add(next.clone());
-                }
-                catch (CloneNotSupportedException e)
-                {
-                    //
-                }
+            List<RawStock> list = sortRawStockList(values, context.getConfiguration(), true);
+            if (null == list) {
+                return;
             }
-            Collections.sort(list);
             RawStock lastRawStock = list.get(0);
-
             String lastNum = lastRawStock.getNum();
             String lastName = lastRawStock.getName();
             int lastChg = lastRawStock.getChg();

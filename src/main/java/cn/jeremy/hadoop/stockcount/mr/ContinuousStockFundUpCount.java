@@ -34,21 +34,10 @@ public class ContinuousStockFundUpCount extends BaseStockCount
         protected void reduce(Text key, Iterable<RawStock> values, Context context)
             throws IOException, InterruptedException
         {
-            Iterator<RawStock> iterator = values.iterator();
-            List<RawStock> list = new ArrayList<>();
-            while (iterator.hasNext())
-            {
-                RawStock next = iterator.next();
-                try
-                {
-                    list.add(next.clone());
-                }
-                catch (CloneNotSupportedException e)
-                {
-                    //
-                }
+            List<RawStock> list = sortRawStockList(values, context.getConfiguration(), true);
+            if (null == list) {
+                return;
             }
-            Collections.sort(list);
             List<StockFundCount> stockFundCounts = new ArrayList<>();
             int count = 0;
             int je = 0;
